@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaMapMarker, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiLeetcode, SiGeeksforgeeks, SiCodingninjas } from "react-icons/si";
+import CodechefIcon from "../Images/codechef-svgrepo-com.svg";
 import "../styles/Contact.css";
 import CentralModal from "./CentralModal";
 
@@ -187,6 +188,16 @@ const Contact = ({ activeSlide }) => {
                 className="contact-icon"
               >
                 <SiCodingninjas size={24} />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.codechef.com/users/sarans13"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-icon"
+              >
+                <img src={CodechefIcon} alt="Code chef Icon"/>
               </a>
             </li>
           </ul>
