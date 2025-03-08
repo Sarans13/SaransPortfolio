@@ -253,8 +253,8 @@ h3 {
 }
 
 .projects-group:hover .projects-image {
-    opacity: 0;
-    transform: scale(0.95); 
+    /* opacity: 0; */
+    transform: scale(0.98); 
 }
 
 .projects-group {
@@ -379,4 +379,34 @@ h3 {
 /* On hover: hide the blur layer */
 .projects-group:hover .projects-overlay-blur {
     opacity: 0;
+}
+
+/* video modal */
+.modal-video{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* margin-top: -1000px; */
+}
+
+.video-modal-content {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+}
+.modal-video {
+    width: 100%;
+}
+.close-modal {
+    background: var(--sarans_brown);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: -60px;
+    margin-top: 15px;
+    z-index: 10000;
 }

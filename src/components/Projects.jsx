@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Projects.css";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaTimes } from "react-icons/fa";
 import IndusaidVideo from "../Videos/indusaid.mp4";
 import planetPlateVideo from "../Videos/PlanetPlate.mp4";
 import farmerGVideo from "../Videos/farmerG.mp4";
@@ -14,7 +14,7 @@ import kalakritiImage from "../Images/kalakriti.png";
 import taskGuideImage from "../Images/taskguide.png";
 import taskGuideVideo from "../Videos/TaskGuide.mp4";
 
-const Project = ({ project }) => {
+const Project = ({ project, openModal }) => {
   return (
     <div className="projects-group relative overflow-hidden">
       <div className="projects-media-wrapper relative">
@@ -23,18 +23,10 @@ const Project = ({ project }) => {
           alt={project.title}
           className="projects-image projects-aspect-3-2 projects-object-cover"
         />
-        <video
-          src={project.video}
-          autoPlay
-          muted
-          loop
-          className="projects-video projects-aspect-3-2 projects-object-cover"
-        ></video>
         <div className="projects-overlay-blur"></div>
       </div>
       <div className="projects-overlay projects-absolute projects-inset-0 projects-bg-gradient-to-t"></div>
       <div className="projects-absolute projects-bottom-0 projects-p-4">
-        {/* <p className="projects-progress">{project.progress}</p> */}
         <h3 className="projects-text-xl projects-font-semibold projects-text-white">
           {project.title}
         </h3>
@@ -42,12 +34,29 @@ const Project = ({ project }) => {
         <a href={project.links.github} target="_blank" rel="noreferrer">
           <FaGithub className="projects-btn" />
         </a>
+        <button
+          className="projects-btn"
+          onClick={() => openModal(project.video)}
+        >
+          Watch Video
+        </button>
       </div>
     </div>
   );
 };
 
 const Projects = () => {
+  const [modalVideo, setModalVideo] = useState(null);
+
+  const openModal = (videoSrc) => {
+    // console.log("clicked" + videoSrc);
+    setModalVideo(videoSrc);
+  };
+
+  const closeModal = () => {
+    setModalVideo(null);
+  };
+
   const projects = [
     {
       id: "1",
@@ -75,7 +84,7 @@ const Projects = () => {
       image: PlanetPlateImage,
       video: planetPlateVideo,
       description:
-        "An Food Safety Application based on food recovery heirarchy.",
+        "A Food Safety Application based on food recovery hierarchy.",
       links: {
         github: "https://iamkcube.github.io/PlanetPlate/",
       },
@@ -95,7 +104,7 @@ const Projects = () => {
       title: "FarmerG",
       image: farmerGImage,
       video: farmerGVideo,
-      description: "Removing middlemen and ensuring Authentication.",
+      description: "Removing middlemen and ensuring authentication.",
       links: {
         github: "https://github.com/Sarans13/FarmerG",
       },
@@ -108,7 +117,7 @@ const Projects = () => {
       description: "Chatbot for Electric Substation.",
       links: {
         github: "https://taskguide-ciphersix.web.app/",
-      }
+      },
     },
   ];
 
@@ -121,10 +130,32 @@ const Projects = () => {
           className="projects-grid projects-gap-6 projects-sm-grid-cols-2 projects-lg-grid-cols-3"
         >
           {projects.map((project) => (
-            <Project key={project.id} project={project} />
+            <Project key={project.id} project={project} openModal={openModal} />
           ))}
         </div>
       </div>
+      {/* Video Modal */}
+      {modalVideo && (
+        <div className="video-modal">
+          <div className="video-modal-content">
+            <button className="close-modal" onClick={closeModal}>
+              <FaTimes />
+            </button>
+            <video
+              key={modalVideo}
+              src={modalVideo}
+              controls
+              autoPlay
+              className="modal-video"
+              ref={(video) => {
+                if (video && window.innerWidth < 768) {
+                  video.requestFullscreen?.(); // Try to enter full-screen mode
+                }
+              }}
+            ></video>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
